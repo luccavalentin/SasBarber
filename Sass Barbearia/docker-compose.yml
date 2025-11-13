@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: sasbarber_postgres
+    environment:
+      POSTGRES_USER: sasbarber
+      POSTGRES_PASSWORD: sasbarber_dev
+      POSTGRES_DB: sasbarber_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - sasbarber_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: sasbarber_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - sasbarber_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: sasbarber_backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://sasbarber:sasbarber_dev@postgres:5432/sasbarber_db
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - sasbarber_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: sasbarber_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - sasbarber_network
+
+volumes:
+  postgres_data:
+
+networks:
+  sasbarber_network:
+    driver: bridge
+
