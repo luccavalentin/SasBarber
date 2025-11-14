@@ -1,0 +1,50 @@
+<svg width="800" height="1400" viewBox="0 0 800 1400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fundo base do WhatsApp -->
+  <rect width="800" height="1400" fill="#0b141a"/>
+  
+  <!-- Padrão de fundo sutil -->
+  <defs>
+    <pattern id="grid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="1" fill="#ffffff" opacity="0.02"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="1400" fill="url(#grid)"/>
+  
+  <!-- Fundo da foto personalizada - área central -->
+  <defs>
+    <linearGradient id="photoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#0b141a;stop-opacity:0.6" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Área da foto (simulando foto com boné e filha) -->
+  <g transform="translate(200, 300)">
+    <!-- Fundo da foto -->
+    <rect x="0" y="0" width="400" height="500" rx="20" fill="url(#photoGradient)" opacity="0.3"/>
+    
+    <!-- Silhueta do dono com boné (simplificado) -->
+    <g opacity="0.25">
+      <!-- Corpo -->
+      <ellipse cx="200" cy="350" rx="120" ry="180" fill="#ffffff"/>
+      <!-- Cabeça com boné -->
+      <circle cx="200" cy="200" r="80" fill="#ffffff"/>
+      <!-- Boné -->
+      <ellipse cx="200" cy="160" rx="100" ry="30" fill="#D4AF37"/>
+      <rect x="100" y="160" width="200" height="40" rx="20" fill="#D4AF37"/>
+      <!-- Logo Sas Barber no boné (simplificado) -->
+      <text x="200" y="180" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#0A1428" text-anchor="middle" opacity="0.8">SB</text>
+      
+      <!-- Filha no colo (silhueta menor) -->
+      <ellipse cx="220" cy="280" rx="50" ry="80" fill="#ffffff"/>
+      <circle cx="220" cy="220" r="40" fill="#ffffff"/>
+    </g>
+    
+    <!-- Overlay escuro para simular foto -->
+    <rect x="0" y="0" width="400" height="500" rx="20" fill="#0b141a" opacity="0.4"/>
+  </g>
+  
+  <!-- Texto "Sas Barber" sutil no fundo -->
+  <text x="400" y="750" font-family="Arial, sans-serif" font-size="120" font-weight="bold" fill="#ffffff" text-anchor="middle" opacity="0.03" transform="rotate(-45 400 750)">SAS BARBER</text>
+</svg>
+
