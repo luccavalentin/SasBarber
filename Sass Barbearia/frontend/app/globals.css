@@ -3,26 +3,557 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Design System - Paleta de Cores Unificada */
+  --gold: #d4af37;
+  --gold-light: #f4d03f;
+  --gold-dark: #b8941f;
+  --gold-lighter: #f9e79f;
+  --gold-darker: #8b7500;
+
+  --dark-charcoal: #2c2c2c;
+  --dark-charcoal-light: #3a3a3a;
+  --dark-charcoal-dark: #1f1f1f;
+
+  --deep-navy: #0a1428;
+  --deep-navy-light: #0f1f3f;
+  --deep-navy-dark: #050a14;
+
+  --cream: #f5f5f5;
+  --cream-light: #ffffff;
+  --cream-dark: #e5e5e5;
+
+  --burgundy: #722f37;
+  --burgundy-light: #8b3a45;
+  --burgundy-dark: #5a2529;
+
+  --metallic-silver: #c0c0c0;
+  --metallic-silver-light: #d0d0d0;
+  --metallic-silver-dark: #a0a0a0;
+
+  /* Gradientes Padrão */
+  --gradient-gold: linear-gradient(
+    135deg,
+    var(--gold) 0%,
+    var(--gold-light) 100%
+  );
+  --gradient-dark: linear-gradient(
+    135deg,
+    var(--deep-navy) 0%,
+    var(--dark-charcoal) 100%
+  );
+  --gradient-burgundy: linear-gradient(
+    135deg,
+    var(--burgundy) 0%,
+    var(--burgundy-light) 100%
+  );
+
+  /* RGB para uso em rgba() */
+  --foreground-rgb: 245, 245, 245;
+  --background-start-rgb: 10, 20, 40;
+  --background-end-rgb: 44, 44, 44;
+  --gold-rgb: 212, 175, 55;
+
+  /* Sombras Padronizadas */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-gold: 0 10px 40px rgba(212, 175, 55, 0.3);
+  --shadow-gold-lg: 0 20px 60px rgba(212, 175, 55, 0.5);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: 245, 245, 245;
+    --background-start-rgb: 10, 20, 40;
+    --background-end-rgb: 44, 44, 44;
   }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: var(--deep-navy);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
+@layer utilities {
+  /* Otimizações de Performance */
+  .scroll-optimized {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  
+  .blur-optimized {
+    will-change: filter;
+    transform: translateZ(0);
+  }
+
+  /* Efeitos de Hover Padronizados */
+  .hover-lift {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-2xl);
+  }
+
+  .hover-gold {
+    transition: all 0.3s ease;
+  }
+
+  .hover-gold:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
+
+  .hover-glow:hover {
+    box-shadow: var(--shadow-gold);
+  }
+
+  /* Animações Padronizadas */
+  .glow-effect {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Textos Gradientes */
+  .text-gradient {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-dark {
+    background: var(--gradient-dark);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Botões Padronizados */
+  .btn-gold {
+    background: var(--gradient-gold);
+    color: var(--deep-navy);
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+
+  .btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold-lg);
+  }
+
+  .btn-outline-gold {
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    background: transparent;
+    transition: all 0.3s ease;
+  }
+
+  .btn-outline-gold:hover {
+    background: var(--gold);
+    color: var(--deep-navy);
+  }
+
+  /* Cards Padronizados */
+  .card-dark {
+    background: var(--dark-charcoal);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    backdrop-filter: blur(10px);
+  }
+
+  .card-gold {
+    border: 1px solid var(--gold);
+    background: rgba(212, 175, 55, 0.1);
+  }
+
+  /* Backgrounds Padronizados */
+  .bg-gradient-dark {
+    background: var(--gradient-dark);
+  }
+
+  .bg-gradient-gold {
+    background: var(--gradient-gold);
+  }
+}
+
+/* Animações Keyframes */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.8);
+  }
+}
+
+@keyframes pulse-gold {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Custom Scrollbar - Padronizado */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--deep-navy);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-gold);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--gold-light) 0%, var(--gold) 100%);
+}
+
+/* Selection - Padronizado */
+::selection {
+  background-color: rgba(212, 175, 55, 0.3);
+  color: var(--cream);
+}
+
+/* Focus States - Padronizados */
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Inputs Padronizados */
+input,
+textarea,
+select {
+  background: var(--dark-charcoal);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: var(--cream);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  transform: translateY(-1px);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--metallic-silver);
+}
+
+/* Animações Sofisticadas */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Efeitos de Glassmorphism Avançado */
+.glass-card {
+  background: rgba(44, 44, 44, 0.4);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.1);
+}
+
+.glass-card:hover {
+  background: rgba(44, 44, 44, 0.5);
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(212, 175, 55, 0.2), inset 0 1px 0 0 rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile Optimizations - Refinado e Fit to Screen */
+@media (max-width: 768px) {
+  /* Base responsivo melhorado */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px;
+    line-height: 1.5;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  /* Garantir que tudo ocupe 100% da largura */
+  html,
+  body {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
+  /* Containers full width */
+  .container,
+  .max-w-7xl,
+  .max-w-6xl,
+  .max-w-5xl {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  /* Touch-friendly buttons */
+  button,
+  a,
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 10px 14px;
+  }
+
+  /* Tipografia responsiva */
+  h1 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    line-height: 1.4;
+  }
+
+  /* Cards mais compactos e full width */
+  .glass-card,
+  .card {
+    padding: 0.75rem;
+    border-radius: 0.625rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Inputs otimizados */
+  input,
+  textarea,
+  select {
+    padding: 0.625rem 0.875rem;
+    font-size: 0.875rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Prevent text selection on buttons */
+  button {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Smooth scrolling */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Grids responsivos - full width */
+  .grid {
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Textos mais legíveis */
+  p,
+  span {
+    font-size: 0.8125rem;
+    line-height: 1.5;
+  }
+
+  /* Remover overflow horizontal */
+  * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Espaçamentos reduzidos */
+  .p-4,
+  .p-6,
+  .p-8 {
+    padding: 0.75rem;
+  }
+
+  .px-4,
+  .px-6,
+  .px-8 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .py-4,
+  .py-6,
+  .py-8 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+
+  .mb-4,
+  .mb-6,
+  .mb-8 {
+    margin-bottom: 0.75rem;
+  }
+
+  .gap-4,
+  .gap-6,
+  .gap-8 {
+    gap: 0.5rem;
+  }
+}
+
+/* Mobile pequeno - otimizações extras */
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
+
+  /* Cards ainda mais compactos */
+  .glass-card,
+  .card {
+    padding: 0.875rem;
+    border-radius: 0.625rem;
+  }
+
+  /* Botões menores mas ainda touch-friendly */
+  button,
+  .touch-target {
+    min-height: 44px;
+    padding: 10px 14px;
+    font-size: 0.875rem;
+  }
+
+  /* Espaçamentos mínimos */
+  .container {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+/* Touch Manipulation */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Scrollbar Hide para mobile */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Melhorias visuais gerais */
+@media (max-width: 768px) {
+  /* Espaçamentos mais compactos */
+  .space-y-4 > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .space-y-3 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  /* Cards mais elegantes */
+  .card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Inputs melhorados */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    transform: none;
+  }
+}
